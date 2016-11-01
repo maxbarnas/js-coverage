@@ -80,13 +80,8 @@ const chart = countedCode.
 	split( '\n' ).
 	filter( line => line && !line.startsWith( '___cnt(' ) ).
 	map( line => {
-		const count = COUNTERS[ i++ ];
-
-		// Non-executed lines:
-		if ( !count && count !== 0 ) {
-			return leftpad( '0', counterPadding ) + ' ' + leftpad( '', graphPadding ) + ' ' + line;
-		}
-
+		// Not every counter will be incremented. Prepare for that.
+		const count = COUNTERS[ i++ ] || 0;
 		// Top counter is 100%, scale the bar to reflect that.
 		const bar = new Array( Math.round( count / topCount * graphPadding ) ).join( '#' )  ;
 
